@@ -16,14 +16,18 @@
     <!-- Ícones Lucide -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
-    <!-- Firebase -->
+    <!-- Firebase Legacy SDKs (Compat) -->
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-messaging-compat.js"></script>
 
     <style>
       body { background-color: #f3f4f6; color: #1f2937; font-family: 'Segoe UI', sans-serif; }
       .card { background: white; border-radius: 24px; padding: 24px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.05); margin-bottom: 16px; border: 1px solid #f0f0f0; }
-      .btn { transition: all 0.2s; active: scale: 0.95; }
+      
+      /* CORREÇÃO: Sintaxe correta para o efeito de clique do botão */
+      .btn { transition: all 0.2s; }
+      .btn:active { transform: scale(0.95); }
+      
       @keyframes pulse-green { 0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); } 100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); } }
       .pulse-btn { animation: pulse-green 2s infinite; }
       
@@ -43,24 +47,25 @@
     <script>
       const API_URL = "https://script.google.com/macros/s/AKfycby3AyDbEbz212PWpPy9Jih5yEDEMoIKIU2QJD0_gnFEC_m7NAnsw5T4uXE228v_sgUs/exec";
       
-      // Sincronizado com a nova chave VAPID gerada no painel pontoweb-dc8dd
+      // Sincronizado com a chave VAPID oficial do seu novo painel p-auroraweb
       const VAPID_KEY = 'BIHEe9suunRyYW3s7YcS2UsQ-ubJkQ7MuYiFUaIDCqTCatn_4gJcVqciSA8LPqax9GWzqA0-fdupDTSZsL72XfY';
 
-      // Configuração com as novas credenciais do seu projeto Firebase
+      // CORREÇÃO: Credenciais atualizadas apontando agora para o seu NOVO projeto 'p-auroraweb'
       const firebaseConfig = {
-        apiKey: "AIzaSyCn89LRlH1lksZ811--jb2jlB2iZS5NH1s",
-        authDomain: "pontoweb-dc8dd.firebaseapp.com",
-        projectId: "pontoweb-dc8dd",
-        storageBucket: "pontoweb-dc8dd.firebasestorage.app",
-        messagingSenderId: "465750633035",
-        appId: "1:465750633035:web:282efd14b807e2a3823bce"
+        apiKey: "AIzaSyD5C2ok20ptITDXs-KhmGC_0TGx1UVUztY",
+        authDomain: "p-auroraweb.firebaseapp.com",
+        projectId: "p-auroraweb",
+        storageBucket: "p-auroraweb.firebasestorage.app",
+        messagingSenderId: "298768259077",
+        appId: "1:298768259077:web:52928c9e3a19e11234646c",
+        measurementId: "G-D4XLLHLTVB"
       };
 
       let messaging = null;
       try {
         firebase.initializeApp(firebaseConfig);
         messaging = firebase.messaging();
-      } catch(e) { console.error("Firebase:", e); }
+      } catch(e) { console.error("Erro na inicialização do Firebase:", e); }
 
       const ExternalBridge = {
         request: async (action, payload = {}) => {
@@ -70,7 +75,7 @@
       };
       
       if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('./sw.js').catch(err => console.error("SW Erro", err));
+        navigator.serviceWorker.register('./sw.js').catch(err => console.error("Erro ao registrar SW:", err));
       }
     </script>
 
